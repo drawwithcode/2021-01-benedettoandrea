@@ -7,7 +7,7 @@ var randNumB = 50;
 // shape selector: 1 = torus; 2 = box
 var shapeSelect = 1;
 
-// materialSelect selector: 1 = normalMaterial; 2 = specularMaterial
+// material selector: 1 = normalMaterial; 2 = specularMaterial
 var materialSelect = 1;
 
 // array
@@ -30,6 +30,8 @@ function setup() {
 }
 
 function draw() {
+  scale(0.75);
+
   // store current mouse location in a 3D space
   let locX = mouseX - width / 2;
   let locY = mouseY - height / 2;
