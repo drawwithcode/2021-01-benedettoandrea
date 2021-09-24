@@ -4,8 +4,11 @@ var randNumA = 1;
 // random number B (randoShape size)
 var randNumB = 50;
 
-// random number C (colours and fx)
-var randNumC = 0.5;
+// shape selector: 1 = torus; 2 = box
+var shapeSelect = 1;
+
+// materialSelect selector: 1 = normalMaterial; 2 = specularMaterial
+var materialSelect = 1;
 
 // array
 var arrayNum;
@@ -17,10 +20,10 @@ function setup() {
   angleMode(DEGREES);
   frameRate(60);
   smooth();
-  normalMaterial();
+  background(0);
 
   // initialise an array of randoShape objects (the range is arbitrary)
-  arrayNum = getRandomInt(5, 100);
+  arrayNum = getRandomInt(5, 25);
   for (let i = 0; i < arrayNum; i++) {
     shape[i] = new randoShape();
   }
@@ -32,10 +35,14 @@ function draw() {
   let locY = mouseY - height / 2;
 
   // light and appearance setup
-  //ambientLight(100);
-  //pointLight(100, 100, 100, locX, locY, 500);
-  //noStroke();
-  //stroke(lerpColor(color("#ea0043"), color("#0fefca"), frameCount / 120));
+  ambientLight(100);
+  pointLight(100, 100, 100, locX, locY, 500);
+
+  // initial check for materialSelect selection
+  if (materialSelect == 1) {
+    normalMaterial();
+    noStroke();
+  }
 
   randomAnimation(randNumA);
 
@@ -52,6 +59,7 @@ function draw() {
 
 // generate a random shape, including its main movement based on frameCount
 class randoShape {
+  // parameters to build the shape
   constructor() {
     this.x = random(-width / 7.5, width / 7.5);
     this.y = random(-height / 7.5, height / 7.5);
@@ -60,38 +68,51 @@ class randoShape {
     this.yRot = random(0.5);
   }
 
+  // show the defined shape
   display() {
     push();
     rotateX(frameCount * this.xRot);
     rotateY(frameCount * this.yRot);
     translate(this.x, this.y);
     scale(this.scale);
-    //plane(windowHeight / 10, randNumB);
-    //box(windowHeight / 10, randNumB, randNumB);
-    //sphere(randNumB);
-    torus(windowHeight / 10, randNumB, 50, 50);
+    if (shapeSelect == 1) {
+      torus(windowHeight / 10, randNumB, 50, 50);
+    } else {
+      box(windowHeight / 3, windowHeight / 3, randNumB * 2);
+    }
     pop();
   }
 }
 
 function mouseClicked() {
-  // generate a random specular material
-  //specularMaterial(
-  //  lerpColor(
-  //    color(getRandomInt(1, 255), getRandomInt(1, 255), getRandomInt(1, 255)),
-  //    color(getRandomInt(1, 255), getRandomInt(1, 255), getRandomInt(1, 255)),
-  //    random(0.25, 0.75)
-  //  )
-  //);
+  // show the array with a random specularMaterial or a normalMaterial
+  if (materialSelect == 2) {
+    specularMaterial(
+      lerpColor(
+        color(getRandomInt(1, 255), getRandomInt(1, 255), getRandomInt(1, 255)),
+        color(getRandomInt(1, 255), getRandomInt(1, 255), getRandomInt(1, 255)),
+        random(0.25, 0.75)
+      )
+    );
+    stroke(
+      lerpColor(
+        color(getRandomInt(1, 255), getRandomInt(1, 255), getRandomInt(1, 255)),
+        color(getRandomInt(1, 255), getRandomInt(1, 255), getRandomInt(1, 255)),
+        frameCount / 120
+      )
+    );
+  } else {
+    normalMaterial();
+    noStroke();
+  }
 
   // generate a new set of random parameters
   randNumA = getRandomInt(-10, 10);
   randNumB = getRandomInt(50, 100);
-  //randNumC = Math.random();
 
   // generate a new array of randoShape objects
   shape = [];
-  arrayNum = getRandomInt(5, 100);
+  arrayNum = getRandomInt(5, 25);
   for (let i = 0; i < arrayNum; i++) {
     shape[i] = new randoShape();
   }
@@ -102,7 +123,7 @@ function randomAnimation(animationValue) {
   rotateX((frameCount * animationValue) / 100);
   rotateY((frameCount * animationValue) / 100);
   rotateZ((frameCount * animationValue) / 100);
-  translate(animationValue * 10, animationValue * 10, animationValue * 10);
+  translate(animationValue * 5, animationValue * 5, animationValue * 5);
 }
 
 // generate a random integer from range, inclusive
@@ -116,14 +137,37 @@ function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
 
+// settings: S = save image; 1 = normalMaterial; 2 = specularMaterial; T = torus; B = box
 function keyTyped() {
   if (key === "s") {
     saveCanvas("myCanvas", "jpg");
   }
-}
-
-function keyTyped() {
-  if (key == "r") {
-    frameCount = 0;
+  if (key === "1") {
+    materialSelect = 1;
+    normalMaterial();
+    noStroke();
+  }
+  if (key === "2") {
+    materialSelect = 2;
+    specularMaterial(
+      lerpColor(
+        color(getRandomInt(1, 255), getRandomInt(1, 255), getRandomInt(1, 255)),
+        color(getRandomInt(1, 255), getRandomInt(1, 255), getRandomInt(1, 255)),
+        random(0.25, 0.75)
+      )
+    );
+    stroke(
+      lerpColor(
+        color(getRandomInt(1, 255), getRandomInt(1, 255), getRandomInt(1, 255)),
+        color(getRandomInt(1, 255), getRandomInt(1, 255), getRandomInt(1, 255)),
+        frameCount / 120
+      )
+    );
+  }
+  if (key === "t") {
+    shapeSelect = 1;
+  }
+  if (key === "b") {
+    shapeSelect = 2;
   }
 }
