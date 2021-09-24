@@ -1,17 +1,27 @@
-var numberino = 1;
-var numberin = 50;
-var numberi = 0.5;
-var number;
+// random number A (animations)
+var randNumA = 1;
+
+// random number B (randoShape size)
+var randNumB = 50;
+
+// random number C (colours and fx)
+var randNumC = 0.5;
+
+// array
+var arrayNum;
 var shape = [];
 
 function setup() {
+  // envi setup
   createCanvas(windowWidth, windowHeight, WEBGL);
   angleMode(DEGREES);
   frameRate(60);
   smooth();
   normalMaterial();
-  number = round(random(5, 100));
-  for (let i = 0; i < number; i++) {
+
+  // initialise an array of randoShape objects (the range is arbitrary)
+  arrayNum = getRandomInt(5, 100);
+  for (let i = 0; i < arrayNum; i++) {
     shape[i] = new randoShape();
   }
 }
@@ -27,16 +37,15 @@ function draw() {
   //noStroke();
   //stroke(lerpColor(color("#ea0043"), color("#0fefca"), frameCount / 120));
 
-  randomAnimation(numberino);
+  randomAnimation(randNumA);
 
   // mild movement based on the stored mouse location
   rotateX(locX / 50);
   rotateY(locY / 50);
-  rotateZ(numberino / 50);
   translate(locX / 10, locY / 10, 0);
 
   // display the generated array of randoShape objects
-  for (let i = 0; i < number; i++) {
+  for (let i = 0; i < arrayNum; i++) {
     shape[i].display();
   }
 }
@@ -46,10 +55,9 @@ class randoShape {
   constructor() {
     this.x = random(-width / 7.5, width / 7.5);
     this.y = random(-height / 7.5, height / 7.5);
-    this.scale = random(0.5, 1);
+    this.scale = random(0.5, 0.75);
     this.xRot = random(0.5);
     this.yRot = random(0.5);
-    this.timer = 3000;
   }
 
   display() {
@@ -58,10 +66,10 @@ class randoShape {
     rotateY(frameCount * this.yRot);
     translate(this.x, this.y);
     scale(this.scale);
-    //plane(windowHeight / 10, numberin);
-    //box(windowHeight / 10, numberin, numberin);
-    //sphere(numberin);
-    torus(windowHeight / 10, numberin, 50, 50);
+    //plane(windowHeight / 10, randNumB);
+    //box(windowHeight / 10, randNumB, randNumB);
+    //sphere(randNumB);
+    torus(windowHeight / 10, randNumB, 50, 50);
     pop();
   }
 }
@@ -77,28 +85,24 @@ function mouseClicked() {
   //);
 
   // generate a new set of random parameters
-  numberino = getRandomInt(-10, 10);
-  numberin = getRandomInt(50, 100);
-  numberi = Math.random();
-}
+  randNumA = getRandomInt(-10, 10);
+  randNumB = getRandomInt(50, 100);
+  //randNumC = Math.random();
 
-// generate multiple shapes in a 3D space - not used
-function randomShapes() {
-  circle(windowWidth / 4, windowHeight / 4, numberin);
-  torus(windowWidth / 8, numberin, numberin, numberin);
+  // generate a new array of randoShape objects
+  shape = [];
+  arrayNum = getRandomInt(5, 100);
+  for (let i = 0; i < arrayNum; i++) {
+    shape[i] = new randoShape();
+  }
 }
 
 // generate a random animation
-function randomAnimation(rotation) {
-  rotate(rotation * 0.125);
-  rotateX((0.125 * numberin) / 100000);
-  rotateY((0.125 * numberin) / 100000);
-  rotateZ((0.125 * numberin) / 100000);
-  translate(
-    (0.25 * numberin) / 1000,
-    (0.5 * numberin) / 1000,
-    (0.75 * numberin) / 1000
-  );
+function randomAnimation(animationValue) {
+  rotateX((frameCount * animationValue) / 100);
+  rotateY((frameCount * animationValue) / 100);
+  rotateZ((frameCount * animationValue) / 100);
+  translate(animationValue * 10, animationValue * 10, animationValue * 10);
 }
 
 // generate a random integer from range, inclusive
@@ -115,5 +119,11 @@ function windowResized() {
 function keyTyped() {
   if (key === "s") {
     saveCanvas("myCanvas", "jpg");
+  }
+}
+
+function keyTyped() {
+  if (key == "r") {
+    frameCount = 0;
   }
 }
