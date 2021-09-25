@@ -86,7 +86,28 @@ class randoShape {
   }
 }
 
-function mouseClicked() {
+// generate a random animation
+function randomAnimation(animationValue) {
+  rotateX((frameCount * animationValue) / 100);
+  rotateY((frameCount * animationValue) / 100);
+  rotateZ((frameCount * animationValue) / 100);
+  translate(animationValue * 5, animationValue * 5, animationValue * 5);
+}
+
+// generate a random integer from range, inclusive
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  background(0);
+}
+
+// generate a new set of shapes
+function regenerateShapes() {
   // show the array with a random specularMaterial or a normalMaterial
   if (materialSelect == 2) {
     specularMaterial(
@@ -120,38 +141,23 @@ function mouseClicked() {
   }
 }
 
-// generate a random animation
-function randomAnimation(animationValue) {
-  rotateX((frameCount * animationValue) / 100);
-  rotateY((frameCount * animationValue) / 100);
-  rotateZ((frameCount * animationValue) / 100);
-  translate(animationValue * 5, animationValue * 5, animationValue * 5);
-}
-
-// generate a random integer from range, inclusive
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
-  background(0);
-}
-
-// settings: S = save image; 1 = normalMaterial; 2 = specularMaterial; T = torus; B = box
-function keyTyped() {
-  if (key === "s") {
-    saveCanvas("myCanvas", "jpg");
+// switch between the two types of shape (torus, box)
+function switchType() {
+  if (shapeSelect == 1) {
+    shapeSelect = 2;
+  } else {
+    shapeSelect = 1;
   }
-  if (key === "1") {
-    materialSelect = 1;
-    normalMaterial();
-    noStroke();
-  }
-  if (key === "2") {
+}
+
+// switch between the two types of material (normalMaterial, specularMaterial)
+function switchColour() {
+  if (materialSelect == 1) {
     materialSelect = 2;
+  } else {
+    materialSelect = 1;
+  }
+  if (materialSelect == 2) {
     specularMaterial(
       lerpColor(
         color(getRandomInt(1, 255), getRandomInt(1, 255), getRandomInt(1, 255)),
@@ -166,13 +172,14 @@ function keyTyped() {
         frameCount / 120
       )
     );
+  } else {
+    normalMaterial();
+    noStroke();
   }
-  if (key === "t") {
-    shapeSelect = 1;
-  }
-  if (key === "b") {
-    shapeSelect = 2;
-  }
+}
+
+function clearBackground() {
+  background(0);
 }
 
 function saveScreenshot() {

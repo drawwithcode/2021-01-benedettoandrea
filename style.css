@@ -26,13 +26,12 @@ canvas {
 
 .header {
   position: absolute;
-  margin-top: -10px;
   left: 0;
   right: 0;
-  margin: 15px;
+  top: 0;
+  margin: 0px;
   padding: 10px;
   color: white;
-  font-size: large;
 }
 
 .footer {
@@ -40,8 +39,14 @@ canvas {
   left: 0;
   right: 0;
   bottom: 0;
-  margin: 15px;
+  margin: 0px;
   padding: 10px;
   color: white;
-  font-size: large;
+}
+
+input {
+  font-family: "Inter", sans-serif;
+  color: white;
+  border: rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, 0);
 }

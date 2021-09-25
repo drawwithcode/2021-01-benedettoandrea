@@ -28,7 +28,17 @@
 
   <body>
     <div class="container" id="container">
-      <div class="header"></div>
+      <div class="header">
+        <input type="button" value="regenerate" onclick="regenerateShapes()" />
+        <input type="button" value="switch type" onclick="switchType()" />
+        <input type="button" value="switch colour" onclick="switchColour()" />
+        <input
+          type="button"
+          value="clear background"
+          onclick="clearBackground()"
+        />
+      </div>
+
       <div class="footer">
         <input
           type="button"
