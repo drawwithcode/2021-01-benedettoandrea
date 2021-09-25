@@ -16,7 +16,7 @@ var shape = [];
 
 function setup() {
   // envi setup
-  createCanvas(windowWidth, windowHeight, WEBGL);
+  createCanvas(windowWidth, windowHeight, WEBGL).parent("container");
   angleMode(DEGREES);
   frameRate(60);
   smooth();
@@ -173,4 +173,8 @@ function keyTyped() {
   if (key === "b") {
     shapeSelect = 2;
   }
+}
+
+function saveScreenshot() {
+  saveCanvas("myCanvas", "jpg");
 }
