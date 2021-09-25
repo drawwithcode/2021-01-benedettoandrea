@@ -137,6 +137,7 @@ function getRandomInt(min, max) {
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
+  background(0);
 }
 
 // settings: S = save image; 1 = normalMaterial; 2 = specularMaterial; T = torus; B = box
