@@ -44,9 +44,36 @@ canvas {
   color: white;
 }
 
+.grid {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  margin: 0px;
+  padding: 10px;
+  color: white;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 0px;
+}
+
 input {
   font-family: "Inter", sans-serif;
   color: white;
   border: rgba(0, 0, 0, 0);
   background-color: rgba(0, 0, 0, 0);
+  padding: 5px;
+}
+
+@media only screen and (max-device-width: 480px) {
+  .header {
+    display: none;
+  }
+}
+
+@media screen and (min-device-width: 481px) {
+  .grid {
+    display: none;
+    grid-template-columns: repeat(2, 1fr);
+  }
 }

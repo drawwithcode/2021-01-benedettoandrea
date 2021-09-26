@@ -1,44 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!--meta tags-->
     <meta charset="utf-8" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
     />
-
     <meta name="theme-color" content="#000000" />
-
+    <!--title-->
     <title>Sketch</title>
-
-    <link rel="stylesheet" type="text/css" href="style.css" />
-
-    <script src="libraries/p5.min.js"></script>
-    <script src="libraries/p5.sound.min.js"></script>
-
+    <!--font-->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter&display=swap"
       rel="stylesheet"
     />
-
+    <!--CSS-->
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <!--p5 libraries-->
+    <script src="libraries/p5.min.js"></script>
+    <script src="libraries/p5.sound.min.js"></script>
+    <!--p5 script-->
     <script src="sketch.js"></script>
   </head>
-
   <body>
     <div class="container" id="container">
+      <!--desktop/large screens-->
       <div class="header">
-        <input type="button" value="regenerate" onclick="regenerateShapes()" />
         <input type="button" value="switch type" onclick="switchType()" />
         <input type="button" value="switch colour" onclick="switchColour()" />
+        <input type="button" value="regenerate" onclick="regenerateShapes()" />
         <input
           type="button"
           value="clear background"
           onclick="clearBackground()"
         />
       </div>
-
+      <!--mobile-->
+      <div class="grid">
+        <div>
+          <input type="button" value="switch type" onclick="switchType()" />
+        </div>
+        <div>
+          <input
+            type="button"
+            value="regenerate"
+            onclick="regenerateShapes()"
+          />
+        </div>
+        <div>
+          <input type="button" value="switch colour" onclick="switchColour()" />
+        </div>
+        <div>
+          <input
+            type="button"
+            value="clear background"
+            onclick="clearBackground()"
+          />
+        </div>
+      </div>
+      <!--both mobile and desktop/large screens-->
       <div class="footer">
         <input
           type="button"
