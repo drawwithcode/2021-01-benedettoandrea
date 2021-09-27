@@ -44,11 +44,24 @@ canvas {
   color: white;
 }
 
-.grid {
+.upperGrid {
   position: absolute;
   left: 0;
   right: 0;
   top: 0;
+  margin: 0px;
+  padding: 10px;
+  color: white;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 0px;
+}
+
+.lowerGrid {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
   margin: 0px;
   padding: 10px;
   color: white;
@@ -66,13 +79,15 @@ input {
 }
 
 @media only screen and (max-device-width: 480px) {
-  .header {
+  .header,
+  .footer {
     display: none;
   }
 }
 
 @media screen and (min-device-width: 481px) {
-  .grid {
+  .lowerGrid,
+  .upperGrid {
     display: none;
     grid-template-columns: repeat(2, 1fr);
   }

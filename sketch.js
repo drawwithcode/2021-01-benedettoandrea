@@ -182,6 +182,14 @@ function clearBackground() {
   background(0);
 }
 
+function startStop() {
+  if (isLooping()) {
+    noLoop();
+  } else {
+    loop();
+  }
+}
+
 function saveScreenshot() {
-  saveCanvas("myCanvas", "jpg");
+  saveCanvas("myCanvas", "png");
 }
