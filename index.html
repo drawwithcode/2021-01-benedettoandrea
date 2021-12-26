@@ -9,15 +9,9 @@
     />
     <meta name="theme-color" content="#000000" />
     <!--title-->
-    <title>Sketch</title>
-    <!--font-->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter&display=swap"
-      rel="stylesheet"
-    />
+    <title>generative artwork</title>
     <!--CSS-->
+    <link rel="stylesheet" type="text/css" href="normalize.css" />
     <link rel="stylesheet" type="text/css" href="style.css" />
     <!--p5 libraries-->
     <script src="libraries/p5.min.js"></script>
@@ -26,61 +20,29 @@
     <script src="sketch.js"></script>
   </head>
   <body>
-    <div class="container" id="container">
-      <!--desktop/large screens-->
+    <div id="p5_loading" class="loadingclass"></div>
+    <div id="container">
       <div class="header">
-        <input type="button" value="switch type" onclick="switchType()" />
-        <input type="button" value="switch colour" onclick="switchColour()" />
-        <input type="button" value="regenerate" onclick="regenerateShapes()" />
-        <input
-          type="button"
-          value="clear background"
-          onclick="clearBackground()"
-        />
+        <button id="switchType" class="item" onclick="switchType()">
+          <span>switch type</span>
+        </button>
+        <button id="switchColour" class="item" onclick="switchColour()">
+          <span>switch colour</span>
+        </button>
+        <button id="regenerateShapes" class="item" onclick="regenerateShapes()">
+          <span>regenerate</span>
+        </button>
+        <button id="clearBackground" class="item" onclick="clearBackground()">
+          <span>clear background</span>
+        </button>
       </div>
-      <!--mobile-->
-      <div class="upperGrid">
-        <div>
-          <input type="button" value="switch type" onclick="switchType()" />
-        </div>
-        <div>
-          <input
-            type="button"
-            value="regenerate"
-            onclick="regenerateShapes()"
-          />
-        </div>
-        <div>
-          <input type="button" value="switch colour" onclick="switchColour()" />
-        </div>
-        <div>
-          <input
-            type="button"
-            value="clear background"
-            onclick="clearBackground()"
-          />
-        </div>
-      </div>
-      <!--desktop/large screens-->
       <div class="footer">
-        <input type="button" value="start/stop" onclick="startStop()" />
-        <input
-          type="button"
-          value="save a screenshot"
-          onclick="saveScreenshot()"
-        />
-      </div>
-      <!--mobile-->
-      <div class="lowerGrid">
-        <div>
-          <input type="button" value="start/stop" onclick="startStop()" />
-        </div>
-        <div>
-          <input
-          type="button"
-          value="save a screenshot"
-          onclick="saveScreenshot()"
-        />
+        <button id="startStop" class="item" onclick="startStop()">
+          <span>start/stop</span>
+        </button>
+        <button id="saveScreenshot" class="item" onclick="saveScreenshot()">
+          <span>save a screenshot</span>
+        </button>
       </div>
     </div>
   </body>

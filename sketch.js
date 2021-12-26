@@ -15,10 +15,9 @@ var arrayNum;
 var shape = [];
 
 function setup() {
-  // envi setup
   createCanvas(windowWidth, windowHeight, WEBGL).parent("container");
-  angleMode(DEGREES);
   frameRate(60);
+  angleMode(DEGREES);
   smooth();
   background(0);
 
@@ -178,10 +177,12 @@ function switchColour() {
   }
 }
 
+// clear the background
 function clearBackground() {
   background(0);
 }
 
+// toggle the movement
 function startStop() {
   if (isLooping()) {
     noLoop();
@@ -190,6 +191,20 @@ function startStop() {
   }
 }
 
+// save a screenshot
 function saveScreenshot() {
-  saveCanvas("myCanvas", "png");
+  let date = new Date();
+  let currentDate =
+    date.getFullYear() +
+    "-" +
+    (date.getMonth() + 1) +
+    "-" +
+    date.getDate() +
+    "-" +
+    date.getHours() +
+    "-" +
+    date.getMinutes() +
+    "-" +
+    date.getSeconds();
+  saveCanvas("artwork_" + currentDate, "png");
 }
