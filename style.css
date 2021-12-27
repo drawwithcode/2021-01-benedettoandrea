@@ -91,6 +91,7 @@ canvas {
   text-align: left;
 }
 
+/* responsiveness */
 @media only screen and (max-device-width: 480px) {
   .header,
   .footer {

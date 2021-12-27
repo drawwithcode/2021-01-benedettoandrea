@@ -31,7 +31,7 @@ function setup() {
 function draw() {
   scale(0.75);
 
-  // store current mouse location in a 3D space
+  // store current mouse location inside of the projected 3D space
   let locX = mouseX - width / 2;
   let locY = mouseY - height / 2;
 
@@ -58,6 +58,26 @@ function draw() {
   }
 }
 
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  background(0);
+}
+
+// generate a random animation
+function randomAnimation(animationValue) {
+  rotateX((frameCount * animationValue) / 100);
+  rotateY((frameCount * animationValue) / 100);
+  rotateZ((frameCount * animationValue) / 100);
+  translate(animationValue * 5, animationValue * 5, animationValue * 5);
+}
+
+// generate a random integer from a range, inclusive
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 // generate a random shape, including its main movement based on frameCount
 class randoShape {
   // parameters to build the shape
@@ -82,61 +102,6 @@ class randoShape {
       box(windowHeight / 3, windowHeight / 3, randNumB * 2);
     }
     pop();
-  }
-}
-
-// generate a random animation
-function randomAnimation(animationValue) {
-  rotateX((frameCount * animationValue) / 100);
-  rotateY((frameCount * animationValue) / 100);
-  rotateZ((frameCount * animationValue) / 100);
-  translate(animationValue * 5, animationValue * 5, animationValue * 5);
-}
-
-// generate a random integer from range, inclusive
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
-  background(0);
-}
-
-// generate a new set of shapes
-function regenerateShapes() {
-  // show the array with a random specularMaterial or a normalMaterial
-  if (materialSelect == 2) {
-    specularMaterial(
-      lerpColor(
-        color(getRandomInt(1, 255), getRandomInt(1, 255), getRandomInt(1, 255)),
-        color(getRandomInt(1, 255), getRandomInt(1, 255), getRandomInt(1, 255)),
-        random(0.25, 0.75)
-      )
-    );
-    stroke(
-      lerpColor(
-        color(getRandomInt(1, 255), getRandomInt(1, 255), getRandomInt(1, 255)),
-        color(getRandomInt(1, 255), getRandomInt(1, 255), getRandomInt(1, 255)),
-        frameCount / 120
-      )
-    );
-  } else {
-    normalMaterial();
-    noStroke();
-  }
-
-  // generate a new set of random parameters
-  randNumA = getRandomInt(-10, 10);
-  randNumB = getRandomInt(50, 100);
-
-  // generate a new array of randoShape objects
-  shape = [];
-  arrayNum = getRandomInt(5, 25);
-  for (let i = 0; i < arrayNum; i++) {
-    shape[i] = new randoShape();
   }
 }
 
@@ -174,6 +139,41 @@ function switchColour() {
   } else {
     normalMaterial();
     noStroke();
+  }
+}
+
+// generate a new set of shapes
+function regenerateShapes() {
+  // show the array with a random specularMaterial or a normalMaterial
+  if (materialSelect == 2) {
+    specularMaterial(
+      lerpColor(
+        color(getRandomInt(1, 255), getRandomInt(1, 255), getRandomInt(1, 255)),
+        color(getRandomInt(1, 255), getRandomInt(1, 255), getRandomInt(1, 255)),
+        random(0.25, 0.75)
+      )
+    );
+    stroke(
+      lerpColor(
+        color(getRandomInt(1, 255), getRandomInt(1, 255), getRandomInt(1, 255)),
+        color(getRandomInt(1, 255), getRandomInt(1, 255), getRandomInt(1, 255)),
+        frameCount / 120
+      )
+    );
+  } else {
+    normalMaterial();
+    noStroke();
+  }
+
+  // generate a new set of random parameters
+  randNumA = getRandomInt(-10, 10);
+  randNumB = getRandomInt(50, 100);
+
+  // generate a new array of randoShape objects
+  shape = [];
+  arrayNum = getRandomInt(5, 25);
+  for (let i = 0; i < arrayNum; i++) {
+    shape[i] = new randoShape();
   }
 }
 
